@@ -6,7 +6,7 @@
 ![Sicherheit](https://img.shields.io/badge/Security-AntiBot-orange?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)
 
-> Vollständige Anleitung zur Konfiguration von **Sonar AntyBot als Plugin für Velocity**
+> Vollständige Anleitung zur Konfiguration von **Sonar AntiBot als Plugin für Velocity**
 
 ---
 
@@ -20,12 +20,12 @@ Velocity (Proxy + Sonar)
 Lobby / BoxPvP / Survival (Backends)
 ```
 
-Sonar läuft **innerhalb von Velocity**, das heißt:
+Sonar läuft **innerhalb von Velocity**, das bedeutet:
 
-- Der Spieler verbindet sich mit dem Proxy
-- Sonar fängt die Verbindung ab
-- führt eine Überprüfung durch
-- erst danach gelangt der Spieler zum Backend
+* Der Spieler verbindet sich mit dem Proxy
+* Sonar fängt die Verbindung ab
+* führt eine Überprüfung durch
+* erst danach gelangt der Spieler zum Backend
 
 ---
 
@@ -35,10 +35,10 @@ Sonar läuft **innerhalb von Velocity**, das heißt:
 
 In der Praxis:
 
-- analysiert es den Datenverkehr des Spielers (Pakete, Physik, Verhalten)
-- erkennt Join-/Flood-Bots
-- nutzt Limbo zur Verifizierung
-- kann CAPTCHA erzwingen
+* analysiert den Datenverkehr des Spielers (Pakete, Physik, Verhalten)
+* erkennt Join-/Flood-Bots
+* nutzt Limbo zur Verifizierung
+* kann CAPTCHA erzwingen
 
 → Das Backend erhält niemals einen nicht verifizierten Spieler
 
@@ -46,22 +46,22 @@ In der Praxis:
 
 ## 💡 Warum lohnt es sich, Sonar zu verwenden?
 
-- ✔️ läuft direkt auf dem Proxy
-- ✔️ keine zusätzlichen Ports
-- ✔️ Limbo-System (effizient)
-- ✔️ automatische Erkennung von Angriffen
-- ✔️ sehr effektiv gegen Join-Bots
+* ✔️ läuft direkt auf dem Proxy
+* ✔️ keine zusätzlichen Ports erforderlich
+* ✔️ Limbo-System (effizient)
+* ✔️ automatische Angriffserkennung
+* ✔️ sehr effektiv gegen Join-Bots
 
-Kurz gesagt: **Standard bei gesicherten Velocity-Netzwerken**
+Kurz gesagt: **Standard für gesicherte Velocity-Netzwerke**
 
 ---
 
 ## Anforderungen
 
-- Java 17+
-- Velocity
-- Sonar `.jar`
-- Backends (Paper / Purpur)
+* Java 17+
+* Velocity
+* Sonar `.jar`
+* Backends (Paper / Purpur)
 
 ---
 
@@ -80,8 +80,8 @@ Kurz gesagt: **Standard bei gesicherten Velocity-Netzwerken**
 
 ### Hosting (z. B. Pterodactyl)
 
-- Sonar in `/plugins/` hochladen
-- Server neu starten
+* Sonar in `/plugins/` hochladen
+* Server neu starten
 
 ### VPS (Linux)
 
@@ -111,7 +111,7 @@ general:
   max-online-per-ip: 2
 ```
 
-→ begrenzt Multi-Join von einer IP-Adresse
+→ Begrenzt mehrere Verbindungen von einer IP-Adresse
 
 ---
 
@@ -125,11 +125,11 @@ attack-tracker:
   attack-cooldown-delay: 3000
 ```
 
-→ Sonar erkennt Angriffe selbstständig und passt sein Verhalten an
+→ Sonar erkennt Angriffe automatisch und passt sein Verhalten an
 
 ---
 
-## Datenbank (optional, aber empfehlenswert)
+## Datenbank (optional, aber empfohlen)
 
 ```yaml
 database:
@@ -144,7 +144,7 @@ database:
 ```
 
 → Speichert verifizierte Spieler
-→ Weniger Captchas für legitime Spieler
+→ Weniger CAPTCHAs für legitime Spieler
 
 ---
 
@@ -155,7 +155,7 @@ queue:
   max-polls: 8
 ```
 
-→ Begrenzt die Anzahl der Spieler, die gleichzeitig zugelassen werden
+→ Begrenzt die Anzahl der gleichzeitig zugelassenen Spieler
 
 ---
 
@@ -166,11 +166,11 @@ verification:
   timing: ALWAYS
 ```
 
-→ Jeder neue Spieler durchläuft eine Verifizierung
+→ Jeder neue Spieler wird überprüft
 
 ---
 
-## Prüfsystem (checks)
+## Prüfsystem (Checks)
 
 ```yaml
 checks:
@@ -202,7 +202,7 @@ map-captcha:
 ```
 
 → CAPTCHA erscheint nur während eines Angriffs
-→ besseres Nutzererlebnis für Spieler
+→ besseres Spielerlebnis
 
 ---
 
@@ -215,7 +215,7 @@ client-brand:
   max-length: 64
 ```
 
-→ Erkennt nicht standardmäßige Clients / Bots
+→ Erkennt ungewöhnliche Clients / Bots
 
 ---
 
@@ -226,7 +226,7 @@ blacklist-threshold: 3
 blacklist-time: 900000
 ```
 
-→ IP-Adresse wird nach mehreren Fehlversuchen auf die Blacklist gesetzt
+→ IP-Adresse wird nach mehreren Fehlversuchen blockiert
 
 ---
 
@@ -234,25 +234,25 @@ blacklist-time: 900000
 
 ### 1. Der Spieler verbindet sich mit dem Proxy
 
-- gelangt zu Velocity
-- Sonar fängt die Verbindung ab
+* gelangt zu Velocity
+* Sonar fängt die Verbindung ab
 
 ### 2. Limbo
 
-- der Spieler gelangt in die Verifizierungsumgebung
+* der Spieler gelangt in die Verifizierungsumgebung
 
 ### 3. Verifizierung
 
 Sonar überprüft:
 
-- Traffic (Gravity)
-- Pakete
-- Kollisionen
-- Client-Marke
+* Traffic (Gravity)
+* Pakete
+* Kollisionen
+* Client-Marke
 
 ### 4. CAPTCHA (im Falle eines Angriffs)
 
-- Der Spieler muss es abtippen
+* Der Spieler muss es lösen
 
 ### 5. Freigabe
 
@@ -266,19 +266,19 @@ Sonar überprüft:
 
 ## 🔒 Sicherheitsmaßnahmen (MUST HAVE)
 
-- ✔️ Backends NICHT öffentlich
-- ✔️ Nur Proxy öffentlich zugänglich
-- ✔️ Velocity Forwarding eingerichtet
-- ✔️ Firewall (auf VPS)
+* ✔️ Backends NICHT öffentlich
+* ✔️ Nur der Proxy ist öffentlich zugänglich
+* ✔️ Velocity Forwarding eingerichtet
+* ✔️ Firewall (auf VPS)
 
 ---
 
 ## Funktionstest
 
-- ✔️ Verifizierung funktioniert
-- ✔️ Captcha erscheint bei Angriff
-- ✔️ Bots werden blockiert
-- ✔️ Keine Verzögerungen beim Beitritt
+* ✔️ Verifizierung funktioniert
+* ✔️ CAPTCHA erscheint bei Angriff
+* ✔️ Bots werden blockiert
+* ✔️ Keine Verzögerungen beim Beitritt
 
 ---
 
@@ -286,42 +286,42 @@ Sonar überprüft:
 
 ### Spieler können nicht beitreten
 
-- → zu aggressive Einstellungen
+* → zu aggressive Einstellungen
 
 ### Anti-Bot funktioniert nicht
 
-- → Plugin wurde nicht geladen
+* → Plugin wurde nicht geladen
 
 ### Verzögerung beim Beitritt
 
-- → zu niedrige Warteschlange
+* → Warteschlange zu niedrig eingestellt
 
 ---
 
 ## 🧰 Kurze Checkliste
 
-- [ ] Plugin befindet sich in `/plugins/`
-- [ ] Server wurde nach dem Hochladen von Sonar neu gestartet
-- [ ] Die Konfiguration wurde korrekt generiert
-- [ ] `verification: ALWAYS`
-- [ ] `map-captcha: DURING_ATTACK`
-- [ ] `gravity / collision / vehicle` aktiviert
-- [ ] `max-online-per-ip` eingestellt
-- [ ] `queue` eingestellt (z. B. 6–8)
-- [ ] Die Datenbank funktioniert (falls verwendet)
-- [ ] Die Backends sind NICHT öffentlich
-- [ ] Du verbindest dich über einen Proxy (Velocity)
-- [ ] Das Captcha erscheint während eines Angriffs
+* [ ] Plugin befindet sich in `/plugins/`
+* [ ] Server wurde nach dem Hochladen von Sonar neu gestartet
+* [ ] Die Konfiguration wurde korrekt generiert
+* [ ] `verification: ALWAYS`
+* [ ] `map-captcha: DURING_ATTACK`
+* [ ] `gravity / collision / vehicle` aktiviert
+* [ ] `max-online-per-ip` eingestellt
+* [ ] `queue` eingestellt (z. B. 6–8)
+* [ ] Datenbank funktioniert (falls verwendet)
+* [ ] Backends sind NICHT öffentlich
+* [ ] Verbindung erfolgt über Proxy (Velocity)
+* [ ] CAPTCHA erscheint während eines Angriffs
 
-→ Wenn alles markiert ist = Sonar funktioniert korrekt
+→ Wenn alles erfüllt ist = Sonar funktioniert korrekt
 
 ---
 
 ## 📎 Weitere Informationen
 
-- Sonar läuft als Plugin (kein separater Server)
-- benötigt keine zusätzlichen Ports
-- funktioniert am besten mit Velocity
+* Sonar läuft als Plugin (kein separater Server)
+* benötigt keine zusätzlichen Ports
+* funktioniert am besten mit Velocity
 
 ---
 
@@ -329,15 +329,14 @@ Sonar überprüft:
 
 **noisy144 / mikusiek144**
 
-- GitHub: [https://github.com/mikusiek144](https://github.com/mikusiek144)
-- Discord: noisy144
+* GitHub: https://github.com/mikusiek144
+* Discord: noisy144
 
 ## Unterstützung
 
 Wenn dir die Anleitung geholfen hat:
 
-- Gib einen Stern
-- Teile sie
-- Hast du ein Problem? Schreibe auf Discord
-
+* Gib einen Stern ⭐
+* Teile sie
+* Problem? Schreib auf Discord
 ---
