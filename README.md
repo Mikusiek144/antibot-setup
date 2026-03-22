@@ -6,7 +6,7 @@
 ![Security](https://img.shields.io/badge/Security-AntiBot-orange?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)
 
-> Complete guide to configuring **Sonar AntyBot as a plugin on Velocity**
+> Complete guide to configuring **Sonar AntiBot as a plugin for Velocity**
 
 ---
 
@@ -20,12 +20,12 @@ Velocity (proxy + Sonar)
 Lobby / BoxPvP / Survival (backends)
 ```
 
-Sonar operates **within Velocity**, meaning:
+Sonar runs **within Velocity**, which means:
 
-- the player connects to the proxy
-- Sonar intercepts the connection
-- performs verification
-- only then does the player reach the backend
+* the player connects to the proxy
+* Sonar intercepts the connection
+* performs verification
+* only then does the player reach the backend
 
 ---
 
@@ -35,10 +35,10 @@ Sonar operates **within Velocity**, meaning:
 
 In practice:
 
-- analyzes player activity (packets, physics, behavior)
-- detects join/flood bots
-- uses limbo for verification
-- can enforce CAPTCHA
+* analyzes player traffic (packets, physics, behavior)
+* detects join/flood bots
+* uses limbo for verification
+* can enforce CAPTCHA
 
 → The backend never receives an unverified player
 
@@ -46,22 +46,22 @@ In practice:
 
 ## 💡 Why use Sonar?
 
-- ✔️ Runs directly on the proxy
-- ✔️ No additional ports required
-- ✔️ Limbo system (high-performance)
-- ✔️ Automatic attack detection
-- ✔️ Highly effective against join bots
+* ✔️ runs directly on the proxy
+* ✔️ no additional ports required
+* ✔️ limbo system (high performance)
+* ✔️ automatic attack detection
+* ✔️ highly effective against join bots
 
-In short: **the standard for secure Velocity networks**
+In short: **a standard for secure Velocity networks**
 
 ---
 
 ## Requirements
 
-- Java 17+
-- Velocity
-- Sonar `.jar`
-- Backends (Paper / Purpur)
+* Java 17+
+* Velocity
+* Sonar `.jar`
+* Backends (Paper / Purpur)
 
 ---
 
@@ -80,8 +80,8 @@ In short: **the standard for secure Velocity networks**
 
 ### Hosting (e.g., Pterodactyl)
 
-- Upload Sonar to `/plugins/`
-- Restart the server
+* upload Sonar to `/plugins/`
+* restart the server
 
 ### VPS (Linux)
 
@@ -111,7 +111,7 @@ general:
   max-online-per-ip: 2
 ```
 
-→ limits multi-join from a single IP
+→ limits multiple connections from a single IP
 
 ---
 
@@ -143,8 +143,8 @@ database:
   maximum-age: 10
 ```
 
-→ Stores verified players
-→ Fewer CAPTCHAs for legitimate players
+→ stores verified players
+→ fewer CAPTCHAs for legitimate players
 
 ---
 
@@ -155,7 +155,7 @@ queue:
   max-polls: 8
 ```
 
-→ limits how many players are admitted at once
+→ limits how many players can join at the same time
 
 ---
 
@@ -202,7 +202,7 @@ map-captcha:
 ```
 
 → CAPTCHA appears only during an attack
-→ better UX for players
+→ better user experience
 
 ---
 
@@ -226,7 +226,7 @@ blacklist-threshold: 3
 blacklist-time: 900000
 ```
 
-→ IP is blacklisted after several failures
+→ IP is blacklisted after multiple failed attempts
 
 ---
 
@@ -234,29 +234,29 @@ blacklist-time: 900000
 
 ### 1. Player connects to the proxy
 
-- goes to Velocity
-- Sonar intercepts the connection
+* connects to Velocity
+* Sonar intercepts the connection
 
 ### 2. Limbo
 
-- the player is sent to the verification environment
+* the player is sent to the verification environment
 
 ### 3. Verification
 
 Sonar checks:
 
-- traffic (gravity)
-- packets
-- collisions
-- client brand
+* traffic (gravity)
+* packets
+* collisions
+* client brand
 
-### 4. CAPTCHA (if an attack)
+### 4. CAPTCHA (during an attack)
 
-- the player must retype it
+* the player must complete it
 
 ### 5. Pass
 
-→ player goes to the lobby
+→ player is sent to the lobby
 
 ### 6. Block
 
@@ -266,52 +266,52 @@ Sonar checks:
 
 ## 🔒 Security Measures (MUST HAVE)
 
-- ✔️ backends NOT public
-- ✔️ only proxy publicly accessible
-- ✔️ Velocity forwarding enabled
-- ✔️ Firewall (on VPS)
+* ✔️ backends are NOT public
+* ✔️ only the proxy is publicly accessible
+* ✔️ Velocity forwarding enabled
+* ✔️ firewall (on VPS)
 
 ---
 
 ## Test if it works
 
-- ✔️ Verification works
-- ✔️ CAPTCHA appears during an attack
-- ✔️ Bots are blocked
-- ✔️ No lag when joining
+* ✔️ verification works
+* ✔️ CAPTCHA appears during an attack
+* ✔️ bots are blocked
+* ✔️ no delay when joining
 
 ---
 
 ## ❌ Most common errors
 
-### Players cannot enter
+### Players cannot join
 
-- → settings are too aggressive
+* → settings are too aggressive
 
 ### Anti-bot not working
 
-- → plugin not loaded
+* → plugin is not loaded
 
-### Lag upon entry
+### Delay on join
 
-- → queue is too low
+* → queue is set too low
 
 ---
 
 ## 🧰 Quick checklist
 
-- [ ] plugin is located in `/plugins/`
-- [ ] server was restarted after uploading Sonar
-- [ ] config generated correctly
-- [ ] `verification: ALWAYS`
-- [ ] `map-captcha: DURING_ATTACK`
-- [ ] `gravity / collision / vehicle` enabled
-- [ ] `max-online-per-ip` set
-- [ ] `queue` set (e.g., 6–8)
-- [ ] database is working (if used)
-- [ ] backends are NOT public
-- [ ] you are connecting via a proxy (Velocity)
-- [ ] captcha appears during an attack
+* [ ] plugin is in `/plugins/`
+* [ ] server was restarted after uploading Sonar
+* [ ] configuration generated correctly
+* [ ] `verification: ALWAYS`
+* [ ] `map-captcha: DURING_ATTACK`
+* [ ] `gravity / collision / vehicle` enabled
+* [ ] `max-online-per-ip` set
+* [ ] `queue` set (e.g. 6–8)
+* [ ] database is working (if used)
+* [ ] backends are NOT public
+* [ ] you are connecting via a proxy (Velocity)
+* [ ] CAPTCHA appears during an attack
 
 → If everything is checked = Sonar is working correctly
 
@@ -319,9 +319,9 @@ Sonar checks:
 
 ## 📎 Additional Information
 
-- Sonar runs as a plugin (not a separate server)
-- Does not require additional ports
-- Works best with Velocity
+* Sonar runs as a plugin (not a separate server)
+* does not require additional ports
+* works best with Velocity
 
 ---
 
@@ -329,15 +329,14 @@ Sonar checks:
 
 **noisy144 / mikusiek144**
 
-- GitHub: [https://github.com/mikusiek144](https://github.com/mikusiek144)
-- Discord: noisy144
+* GitHub: https://github.com/mikusiek144
+* Discord: noisy144
 
 ## Support
 
 If this guide helped you:
 
-- leave a star
-- share it
-- having a problem? message me on Discord
-
+* leave a star ⭐
+* share it
+* having a problem? message me on Discord
 ---
