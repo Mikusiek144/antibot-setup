@@ -6,13 +6,13 @@
 ![Security](https://img.shields.io/badge/Security-AntiBot-orange?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)
 
-> Kompletny poradnik konfiguracji **Sonar AntyBot jako plugin na Velocity**
+> Kompletny poradnik konfiguracji **Sonar AntiBot jako pluginu dla Velocity**
 
 ---
 
 ## 📡 Architektura (jak to działa)
 
-```
+```id="h9g2kp"
 Gracz
   ↓
 Velocity (proxy + Sonar)
@@ -20,48 +20,48 @@ Velocity (proxy + Sonar)
 Lobby / BoxPvP / Survival (backendy)
 ```
 
-Sonar działa **wewnątrz Velocity**, czyli:
+Sonar działa **wewnątrz Velocity**, co oznacza:
 
-- gracz łączy się do proxy
-- Sonar przechwytuje połączenie
-- wykonuje weryfikację
-- dopiero potem gracz trafia na backend
+* gracz łączy się z proxy
+* Sonar przechwytuje połączenie
+* przeprowadza weryfikację
+* dopiero potem gracz trafia na backend
 
 ---
 
 ## 📌 Czym jest Sonar?
 
-**Sonar** to nowoczesny antybot dla Velocity.
+**Sonar** to nowoczesny system antybotowy dla Velocity.
 
 W praktyce:
 
-- analizuje ruch gracza (pakiety, fizyka, zachowanie)
-- wykrywa boty join / flood
-- używa limbo do weryfikacji
-- może wymuszać CAPTCHA
+* analizuje ruch gracza (pakiety, fizyka, zachowanie)
+* wykrywa boty typu join/flood
+* wykorzystuje limbo do weryfikacji
+* może wymuszać CAPTCHA
 
-→ Backend nigdy nie dostaje niezweryfikowanego gracza
+→ Backend nigdy nie otrzymuje niezweryfikowanego gracza
 
 ---
 
 ## 💡 Dlaczego warto używać Sonara?
 
-- ✔️ działa bezpośrednio na proxy
-- ✔️ brak dodatkowych portów
-- ✔️ system limbo (wydajny)
-- ✔️ automatyczne wykrywanie ataku
-- ✔️ bardzo skuteczny na boty join
+* ✔️ działa bezpośrednio na proxy
+* ✔️ nie wymaga dodatkowych portów
+* ✔️ system limbo (wydajny)
+* ✔️ automatyczne wykrywanie ataków
+* ✔️ bardzo skuteczny przeciwko botom join
 
-Krótko: **standard przy zabezpieczonych sieciach Velocity**
+Krótko: **standard w zabezpieczonych sieciach Velocity**
 
 ---
 
 ## Wymagania
 
-- Java 17+
-- Velocity
-- Sonar `.jar`
-- Backendy (Paper / Purpur)
+* Java 17+
+* Velocity
+* Sonar `.jar`
+* Backendy (Paper / Purpur)
 
 ---
 
@@ -69,7 +69,7 @@ Krótko: **standard przy zabezpieczonych sieciach Velocity**
 
 ### Struktura plików
 
-```
+```id="v7k3df"
 /server/
   ├── velocity/
   │    └── plugins/
@@ -80,12 +80,12 @@ Krótko: **standard przy zabezpieczonych sieciach Velocity**
 
 ### Hosting (np. Pterodactyl)
 
-- wrzuć Sonar do `/plugins/`
-- restart serwera
+* wrzuć Sonar do `/plugins/`
+* zrestartuj serwer
 
 ### VPS (Linux)
 
-```bash
+```bash id="c4k8n1"
 screen -S velocity
 java -jar velocity.jar
 ```
@@ -96,7 +96,7 @@ java -jar velocity.jar
 
 Plik:
 
-```
+```id="xj2n9p"
 plugins/sonar/config.yml
 ```
 
@@ -104,20 +104,20 @@ plugins/sonar/config.yml
 
 ## Ustawienia ogólne
 
-```yaml
+```yaml id="r6t1sm"
 general:
   check-for-updates: true
   log-player-addresses: true
   max-online-per-ip: 2
 ```
 
-→ ogranicza multi-join z jednego IP
+→ ogranicza liczbę połączeń z jednego adresu IP
 
 ---
 
-## Attack Tracker (automatyczne wykrywanie ataku)
+## Attack Tracker (automatyczne wykrywanie ataków)
 
-```yaml
+```yaml id="m8z3qk"
 attack-tracker:
   min-players-for-attack: 15
   min-attack-duration: 30000
@@ -125,13 +125,13 @@ attack-tracker:
   attack-cooldown-delay: 3000
 ```
 
-→ Sonar sam wykrywa ataki i zmienia zachowanie
+→ Sonar sam wykrywa ataki i odpowiednio dostosowuje swoje działanie
 
 ---
 
-## Baza danych (opcjonalne ale polecam)
+## Baza danych (opcjonalna, ale zalecana)
 
-```yaml
+```yaml id="p2l6xs"
 database:
   type: mariadb
   filename: verified_players
@@ -143,25 +143,25 @@ database:
   maximum-age: 10
 ```
 
-→ zapamiętuje zweryfikowanych graczy
-→ mniej captcha dla legitnych graczy
+→ zapisuje zweryfikowanych graczy
+→ mniej CAPTCHA dla prawdziwych graczy
 
 ---
 
-## Kolejka (anty spam join)
+## Kolejka (anti-spam join)
 
-```yaml
+```yaml id="w9q4bn"
 queue:
   max-polls: 8
 ```
 
-→ ogranicza ile graczy jest wpuszczanych jednocześnie
+→ ogranicza liczbę graczy wpuszczanych jednocześnie
 
 ---
 
 ## Weryfikacja (najważniejsze)
 
-```yaml
+```yaml id="z1c7yt"
 verification:
   timing: ALWAYS
 ```
@@ -172,7 +172,7 @@ verification:
 
 ## System sprawdzania (checks)
 
-```yaml
+```yaml id="d5n8kr"
 checks:
   gravity:
     enabled: true
@@ -187,13 +187,13 @@ checks:
     minimum-packets: 2
 ```
 
-→ wykrywa boty po zachowaniu klienta
+→ wykrywa boty na podstawie zachowania klienta
 
 ---
 
 ## CAPTCHA (KLUCZOWE)
 
-```yaml
+```yaml id="u3h9vx"
 map-captcha:
   timing: DURING_ATTACK
   style: modern
@@ -202,13 +202,13 @@ map-captcha:
 ```
 
 → CAPTCHA pojawia się tylko podczas ataku
-→ lepszy UX dla graczy
+→ lepsze doświadczenie dla graczy
 
 ---
 
-## Client check
+## Sprawdzanie klienta
 
-```yaml
+```yaml id="k7m2qa"
 client-brand:
   enabled: true
   valid-regex: ^[!-~ ]+$
@@ -221,38 +221,38 @@ client-brand:
 
 ## Blacklista
 
-```yaml
+```yaml id="s4f8jw"
 blacklist-threshold: 3
 blacklist-time: 900000
 ```
 
-→ IP trafia na blacklistę po kilku failach
+→ adres IP trafia na blacklistę po kilku nieudanych próbach
 
 ---
 
-## ⚡ Jak działa (krok po kroku)
+## ⚡ Jak to działa (krok po kroku)
 
 ### 1. Gracz łączy się z proxy
 
-- trafia do Velocity
-- Sonar przechwytuje połączenie
+* trafia do Velocity
+* Sonar przechwytuje połączenie
 
 ### 2. Limbo
 
-- gracz trafia do środowiska weryfikacyjnego
+* gracz trafia do środowiska weryfikacyjnego
 
 ### 3. Weryfikacja
 
 Sonar sprawdza:
 
-- ruch (gravity)
-- pakiety
-- kolizję
-- client brand
+* ruch (gravity)
+* pakiety
+* kolizje
+* client brand
 
-### 4. CAPTCHA (jeśli atak)
+### 4. CAPTCHA (w trakcie ataku)
 
-- gracz musi ją przepisać
+* gracz musi ją przepisać
 
 ### 5. Przepuszczenie
 
@@ -266,19 +266,19 @@ Sonar sprawdza:
 
 ## 🔒 Zabezpieczenia (MUST HAVE)
 
-- ✔️ backendy NIE publiczne
-- ✔️ tylko proxy dostępne publicznie
-- ✔️ velocity forwarding ustawiony
-- ✔️ firewall (na VPS)
+* ✔️ backendy NIE są publiczne
+* ✔️ tylko proxy jest dostępne publicznie
+* ✔️ włączony Velocity forwarding
+* ✔️ firewall (na VPS)
 
 ---
 
-## Test czy działa
+## Test działania
 
-- ✔️ weryfikacja działa
-- ✔️ captcha pojawia się przy ataku
-- ✔️ boty są blokowane
-- ✔️ brak lagów przy join
+* ✔️ weryfikacja działa
+* ✔️ CAPTCHA pojawia się podczas ataku
+* ✔️ boty są blokowane
+* ✔️ brak opóźnień przy dołączaniu
 
 ---
 
@@ -286,42 +286,42 @@ Sonar sprawdza:
 
 ### Gracze nie mogą wejść
 
-- → za agresywne ustawienia
+* → ustawienia są zbyt agresywne
 
 ### Antybot nie działa
 
-- → plugin nie wczytany
+* → plugin nie został wczytany
 
-### Lag przy wejściu
+### Opóźnienie przy wejściu
 
-- → za niski queue
+* → kolejka ustawiona zbyt nisko
 
 ---
 
 ## 🧰 Szybka checklista
 
-- [ ] plugin znajduje się w `/plugins/`
-- [ ] serwer został zrestartowany po wgraniu Sonara
-- [ ] config wygenerował się poprawnie
-- [ ] `verification: ALWAYS`
-- [ ] `map-captcha: DURING_ATTACK`
-- [ ] `gravity / collision / vehicle` włączone
-- [ ] `max-online-per-ip` ustawione
-- [ ] `queue` ustawiona (np. 6–8)
-- [ ] baza danych działa (jeśli używana)
-- [ ] backendy NIE są publiczne
-- [ ] łączysz się przez proxy (Velocity)
-- [ ] captcha pojawia się podczas ataku
+* [ ] plugin znajduje się w `/plugins/`
+* [ ] serwer został zrestartowany po wgraniu Sonara
+* [ ] konfiguracja wygenerowała się poprawnie
+* [ ] `verification: ALWAYS`
+* [ ] `map-captcha: DURING_ATTACK`
+* [ ] `gravity / collision / vehicle` włączone
+* [ ] `max-online-per-ip` ustawione
+* [ ] `queue` ustawiona (np. 6–8)
+* [ ] baza danych działa (jeśli używana)
+* [ ] backendy NIE są publiczne
+* [ ] łączysz się przez proxy (Velocity)
+* [ ] CAPTCHA pojawia się podczas ataku
 
-→ Jeśli wszystko zaznaczone = Sonar działa poprawnie
+→ Jeśli wszystko jest zaznaczone = Sonar działa poprawnie
 
 ---
 
 ## 📎 Dodatkowe informacje
 
-- Sonar działa jako plugin (nie osobny serwer)
-- nie wymaga dodatkowych portów
-- najlepiej działa z Velocity
+* Sonar działa jako plugin (nie jako osobny serwer)
+* nie wymaga dodatkowych portów
+* najlepiej działa z Velocity
 
 ---
 
@@ -329,15 +329,14 @@ Sonar sprawdza:
 
 **noisy144 / mikusiek144**
 
-- GitHub: [https://github.com/mikusiek144](https://github.com/mikusiek144)
-- Discord: noisy144
+* GitHub: https://github.com/mikusiek144
+* Discord: noisy144
 
 ## Wsparcie
 
-Jeśli poradnik pomógł:
+Jeśli poradnik Ci pomógł:
 
-- zostaw gwiazdkę
-- udostępnij
-- masz problem? napisz na Discord
-
+* zostaw gwiazdkę ⭐
+* udostępnij go
+* masz problem? napisz na Discord
 ---
